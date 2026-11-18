@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { FaGithub } from 'react-icons/fa';
 import { authClient } from '@/lib/auth-client';
 
 export default function LoginPage() {
@@ -37,6 +38,14 @@ export default function LoginPage() {
     router.refresh();
   }
 
+  async function handleGithub() {
+    const { error: err } = await authClient.signIn.social({
+      provider: 'github',
+      callbackURL: getRedirect(),
+    });
+    if (err) toast.error(err.message || 'GitHub login failed');
+  }
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-10">
       <div className="card w-full max-w-md bg-base-200 shadow-xl">
@@ -51,6 +60,12 @@ export default function LoginPage() {
 
           <button type="submit" className="btn btn-primary w-full" disabled={loading}>
             {loading ? <span className="loading loading-spinner"></span> : 'Login'}
+          </button>
+
+          <div className="divider my-0">OR</div>
+
+          <button type="button" onClick={handleGithub} className="btn btn-outline w-full">
+            <FaGithub size={18} /> Continue with GitHub
           </button>
 
           <p className="text-center text-sm">
