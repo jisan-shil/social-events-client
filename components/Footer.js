@@ -63,7 +63,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/20 py-4 text-center text-sm text-white/80">
-        © {new Date().getFullYear()} Seva Circle. All rights reserved.
+                © 2026 Seva Circle. All rights reserved.
       </div>
     </footer>
   );
